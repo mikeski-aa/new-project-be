@@ -12,7 +12,7 @@ const customFields = {
 };
 
 const verifyCallback = (username, password, done) => {
-  console.log("hello");
+  console.log("test");
   prisma.user
     .findFirst({
       where: {
@@ -38,6 +38,7 @@ const verifyCallback = (username, password, done) => {
       }
     })
     .catch((err) => {
+      console.log("error encountered");
       done(err);
     });
 };
@@ -51,7 +52,7 @@ const verifyJWTCallback = (jwt_payload, done) => {
   prisma.user
     .findFirst({
       where: {
-        email: jwt_payload.email,
+        username: jwt_payload.username,
       },
     })
     .then((user) => {

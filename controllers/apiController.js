@@ -16,9 +16,9 @@ exports.postRegister = asyncHandler(async (req, res, next) => {
 
 exports.postLogin = asyncHandler(async (req, res, next) => {
   console.log("post login function entered");
-  const token = jwt.sign({ username: req.body.username }, "secret", {
+  console.log(req.user.username);
+  const token = jwt.sign({ username: req.user.username }, "secret", {
     expiresIn: "12h",
   });
-
   return res.json({ token: token, user: req.user });
 });

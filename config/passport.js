@@ -12,7 +12,6 @@ const customFields = {
 };
 
 const verifyCallback = (username, password, done) => {
-  console.log("test");
   prisma.user
     .findFirst({
       where: {
@@ -49,6 +48,7 @@ passport.use(strategy);
 
 /// JWT strategy part
 const verifyJWTCallback = (jwt_payload, done) => {
+  console.log("????");
   prisma.user
     .findFirst({
       where: {

@@ -7,6 +7,9 @@ const cors = require("cors");
 
 require("dotenv").config();
 
+// without actually importing passport setup file the login wont work
+require("./config/passport");
+
 const indexRouter = require("./routes/index");
 const apiRouter = require("./routes/apiRoutes");
 

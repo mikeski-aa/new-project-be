@@ -2,6 +2,7 @@ const { prisma } = require("../config/db");
 const { validatePassword } = require("../utils/passportUtils");
 
 // issues with passport.js made me rewrite it myself
+// this is no longer required as I've fixed issues with passport
 exports.loginConfirm = async (req, res, next) => {
   prisma.user
     .findFirst({
@@ -18,16 +19,16 @@ exports.loginConfirm = async (req, res, next) => {
       const isValid = validatePassword(req.body.password, user.hash);
 
       if (isValid) {
-        console.log("valid confirmed");
+        console.log("password validation successful");
         req.user = user;
         return next();
       } else {
-        console.log("valid failed");
+        console.log("password validation failed");
         return res.json({ error: "User login failed" });
       }
     })
     .catch((error) => {
       console.log("error encountered");
-      next(error);
+      return res.json({ error: error });
     });
 };

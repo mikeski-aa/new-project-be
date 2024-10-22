@@ -20,22 +20,22 @@ apiRouter.post("/register", registerValidation, apiController.postRegister);
 
 // login existing user route
 // login validation middleware will be required!
-// passport.authenticate("local", { session: false }),
+//   loginConfirm,
+
 apiRouter.post(
   "/login",
   loginValidation,
-  loginConfirm,
+  passport.authenticate("local", { session: false }),
   apiController.postLogin
 );
 
 // get users
 apiRouter.get(
   "/users",
-  asyncHandler(async (req, res, next) => {
-    const response = await prisma.user.findMany();
-    console.log(response);
-    res.send(response);
-  })
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    console.log(req.user);
+  }
 );
 
 module.exports = apiRouter;

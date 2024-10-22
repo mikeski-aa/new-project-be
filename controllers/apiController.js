@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { genPassword } = require("../utils/passportUtils");
 const { createNewUser } = require("../services/userCalls");
+const jwt = require("jsonwebtoken");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -11,4 +12,13 @@ exports.postRegister = asyncHandler(async (req, res, next) => {
 
   console.log(response);
   res.json(response);
+});
+
+exports.postLogin = asyncHandler(async (req, res, next) => {
+  console.log("post login function entered");
+  const token = jwt.sign({ username: req.body.username }, "secret", {
+    expiresIn: "12h",
+  });
+
+  return res.json({ token: token, user: req.user });
 });

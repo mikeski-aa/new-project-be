@@ -11,11 +11,12 @@ const customFields = {
   passwordField: "password",
 };
 
-const verifyCallback = (email, password, done) => {
+const verifyCallback = (username, password, done) => {
+  console.log("hello");
   prisma.user
     .findFirst({
       where: {
-        email: email,
+        username: username,
       },
     })
     .then((user) => {

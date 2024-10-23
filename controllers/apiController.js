@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const { genPassword } = require("../utils/passportUtils");
 const { createNewUser, getGuestInfo } = require("../services/userCalls");
 const jwt = require("jsonwebtoken");
+const { getBudgets } = require("../services/budgetCalls");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -57,4 +58,10 @@ exports.postGuestCreate = asyncHandler(async (req, res, next) => {
   };
 
   return res.json({ token: token, user: returnObject });
+});
+
+exports.getBudgets = asyncHandler(async (req, res, next) => {
+  const budgets = getBudgets(req.query.userid);
+
+  return res.json(budgets);
 });

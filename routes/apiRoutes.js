@@ -35,6 +35,12 @@ apiRouter.get(
 
 apiRouter.post("/login/guest", apiController.postGuestCreate);
 
+apiRouter.get(
+  "/budgets",
+  passport.authenticate("jwt", { session: false }),
+  apiController.getBudgets
+);
+
 // get users
 apiRouter.get(
   "/users",

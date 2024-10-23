@@ -61,7 +61,7 @@ exports.postGuestCreate = asyncHandler(async (req, res, next) => {
 });
 
 exports.getBudgets = asyncHandler(async (req, res, next) => {
-  const budgets = getBudgets(req.query.userid);
-
+  const budgets = await getBudgets(req.query.userid);
+  console.log(budgets);
   return res.json(budgets);
 });

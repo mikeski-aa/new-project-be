@@ -20,5 +20,17 @@ exports.postLogin = asyncHandler(async (req, res, next) => {
   const token = jwt.sign({ username: req.user.username }, "secret", {
     expiresIn: "12h",
   });
-  return res.json({ token: token, user: req.user });
+
+  // define user object to return
+  const returnObject = {
+    username: req.user.username,
+    id: req.user.id,
+  };
+
+  return res.json({ token: token, user: returnObject });
+});
+
+// get login data back to frontend
+exports.getLogin = asyncHandler(async (req, res, next) => {
+  res.json(req.user);
 });

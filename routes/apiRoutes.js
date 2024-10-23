@@ -19,14 +19,18 @@ apiRouter.get("/", (req, res, next) => {
 apiRouter.post("/register", registerValidation, apiController.postRegister);
 
 // login existing user route
-// login validation middleware will be required!
-//   loginConfirm,
-
 apiRouter.post(
   "/login",
   loginValidation,
   passport.authenticate("local", { session: false }),
   apiController.postLogin
+);
+
+// check if user is logged in, returning the user back to frontend
+apiRouter.get(
+  "/login",
+  passport.authenticate("jwt", { session: false }),
+  apiController.getLogin
 );
 
 // get users

@@ -13,20 +13,33 @@ model user {
   hash     String
   dateCreated DateTime @default(now())
   isGuest Boolean @default(false)
+  budgets budget[]
 }
 
-model Budget {
+model budget {
   id Int @unique @default(autoincrement())
+  user user @relation(fields: [userId], references: [id])
+  userId Int
   name String 
-  items Item[]
+  items item[]
+  interval String?
+  customInterval Int?
 }
 
-model Item {
+
+model item {
   id Int @unique @default(autoincrement())
-  budget Budget @relation(fields: [budgetId], references: [id])
+  budget budget @relation(fields: [budgetId], references: [id])
   budgetId Int
   name String?
   price Float 
-  data DateTime
+  date DateTime
+  category category[]
 
+}
+
+model category {
+  id Int @unique @default(autoincrement())
+  category item @relation(fields: [itemId], references: [id])
+  itemId Int
 }

@@ -14,3 +14,19 @@ model user {
   dateCreated DateTime @default(now())
   isGuest Boolean @default(false)
 }
+
+model Budget {
+  id Int @unique @default(autoincrement())
+  name String 
+  items Item[]
+}
+
+model Item {
+  id Int @unique @default(autoincrement())
+  budget Budget @relation(fields: [budgetId], references: [id])
+  budgetId Int
+  name String?
+  price Float 
+  data DateTime
+
+}

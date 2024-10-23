@@ -19,6 +19,7 @@ model user {
 model budget {
   id Int @unique @default(autoincrement())
   user user @relation(fields: [userId], references: [id])
+  budgetValue Float
   userId Int
   name String 
   items item[]

@@ -67,7 +67,7 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: "secret",
+      secretOrKey: process.env.TOKEN_SECRET,
     },
     verifyJWTCallback
   )

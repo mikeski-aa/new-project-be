@@ -17,4 +17,19 @@ async function createNewUser(username, hash) {
   }
 }
 
-module.exports = { createNewUser };
+async function getGuestInfo(name) {
+  try {
+    const response = await prisma.user.findFirst({
+      where: {
+        username: name,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return { error: error };
+  }
+}
+
+module.exports = { createNewUser, getGuestInfo };

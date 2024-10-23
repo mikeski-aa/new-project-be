@@ -33,6 +33,8 @@ apiRouter.get(
   apiController.getLogin
 );
 
+apiRouter.post("/login/guest");
+
 // get users
 apiRouter.get(
   "/users",

@@ -36,4 +36,4 @@ async function getStore(storeId) {
   }
 }
 
-module.exports = { getStores };
+module.exports = { getStores, getStore };

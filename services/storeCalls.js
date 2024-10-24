@@ -7,7 +7,7 @@ async function getStores(id) {
         userId: +id,
       },
       include: {
-        items: true,
+        products: true,
       },
     });
 

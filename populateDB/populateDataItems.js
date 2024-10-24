@@ -1,15 +1,18 @@
+const { response } = require("express");
 const { prisma } = require("../config/db");
 
-async function createBudget() {
-  const response = await prisma.budget.create({
+async function createStore() {
+  const response = await prisma.store.create({
     data: {
       userId: 1,
-      name: "Monthly Budget",
-      interval: "monthly",
-      budgetValue: 5000.0,
+      name: "My Store",
+      location: "Sheffield",
     },
   });
+  console.log(response);
 }
+
+// createStore();
 
 async function updateUserGuestStatus() {
   const response = await prisma.user.update({
@@ -22,14 +25,15 @@ async function updateUserGuestStatus() {
   });
 }
 
-async function putItem(budgetid, name, price, dateinput) {
-  const date = new Date(dateinput);
-  const response = await prisma.item.create({
+async function putProduct(storeid, name, price, category, quantity, sku) {
+  const response = await prisma.product.create({
     data: {
-      budgetId: budgetid,
+      storeId: storeid,
       name: name,
       price: price,
-      date: date,
+      category: category,
+      quantity: quantity,
+      sku: sku,
     },
   });
 
@@ -61,3 +65,11 @@ async function getItems(id) {
 // putItem(2, "Sept test", 4.22, "2024-07-05");
 
 // updateUserGuestStatus();
+
+async function testApi() {
+  fetch("https://fakestoreapi.com/products")
+    .then((res) => res.json())
+    .then((json) => console.log(json));
+}
+
+// testApi();

@@ -18,4 +18,22 @@ async function getStores(id) {
   }
 }
 
+async function getStore(storeId) {
+  try {
+    const response = await prisma.store.findFirst({
+      where: {
+        id: +storeId,
+      },
+      include: {
+        products: true,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 module.exports = { getStores };

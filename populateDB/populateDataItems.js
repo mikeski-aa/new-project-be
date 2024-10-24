@@ -27,11 +27,13 @@ async function updateUserGuestStatus() {
 }
 
 async function testProductFill(storeid, item) {
+  const newPrice = parseFloat(item.Price.toFixed(2));
+
   const response = await prisma.product.create({
     data: {
       storeId: storeid,
       name: item.Name,
-      price: item.Price,
+      price: newPrice,
       category: item.Category,
       quantity: item.Quantity,
       sku: item.SKU,
@@ -50,6 +52,7 @@ async function putProduct(item, storeId) {
 }
 
 putProduct(carItems, 2);
+putProduct(items, 1);
 
 async function getProducts(id) {
   const response = await prisma.store.findFirst({

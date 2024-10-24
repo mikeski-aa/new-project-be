@@ -31,7 +31,7 @@ model product {
   store store @relation(fields: [storeId], references: [id])
   storeId Int
   name String
-  price Decimal 
+  price Float 
   category String
   quantity Int 
   sku String

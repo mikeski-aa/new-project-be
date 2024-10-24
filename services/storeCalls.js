@@ -1,8 +1,8 @@
 const { prisma } = require("../config/db");
 
-async function getBudgets(id) {
+async function getStores(id) {
   try {
-    const response = await prisma.budget.findMany({
+    const response = await prisma.store.findMany({
       where: {
         userId: +id,
       },
@@ -18,4 +18,4 @@ async function getBudgets(id) {
   }
 }
 
-module.exports = { getBudgets };
+module.exports = { getStores };

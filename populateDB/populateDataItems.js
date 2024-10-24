@@ -1,13 +1,13 @@
 const { response } = require("express");
 const { prisma } = require("../config/db");
-const { items } = require("../populateDB/fakeItems");
+const { items, carItems } = require("../populateDB/fakeItems");
 
 async function createStore() {
   const response = await prisma.store.create({
     data: {
       userId: 1,
-      name: "My Store",
-      location: "Sheffield",
+      name: "My Other Store",
+      location: "Manchester",
     },
   });
   console.log(response);
@@ -41,43 +41,30 @@ async function testProductFill(storeid, item) {
   console.log(response);
 }
 
-async function putProduct(storeid, name, price, category, quantity, sku) {
-  const fakeItems = items;
-
+async function putProduct(item, storeId) {
   let test = await Promise.all(
-    fakeItems.map((product) => testProductFill(1, product))
+    item.map((product) => testProductFill(storeId, product))
   );
 
   console.log(test);
-
-  // const response = await prisma.product.create({
-  //   data: {
-  //     storeId: storeid,
-  //     name: name,
-  //     price: price,
-  //     category: category,
-  //     quantity: quantity,
-  //     sku: sku,
-  //   },
-  // });
-
-  // console.log(response);
 }
 
-putProduct();
+putProduct(carItems, 2);
 
-async function getItems(id) {
-  const response = await prisma.budget.findFirst({
+async function getProducts(id) {
+  const response = await prisma.store.findFirst({
     where: {
       id: id,
     },
     include: {
-      items: true,
+      products: true,
     },
   });
 
   console.log(response);
 }
+
+// getProducts(1);
 
 // getItems(2);
 // createBudget();
@@ -91,11 +78,3 @@ async function getItems(id) {
 // putItem(2, "Sept test", 4.22, "2024-07-05");
 
 // updateUserGuestStatus();
-
-async function testApi() {
-  fetch("https://fakestoreapi.com/products")
-    .then((res) => res.json())
-    .then((json) => console.log(json));
-}
-
-// testApi();

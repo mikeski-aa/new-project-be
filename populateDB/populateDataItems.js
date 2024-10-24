@@ -1,5 +1,6 @@
 const { response } = require("express");
 const { prisma } = require("../config/db");
+const { items } = require("../populateDB/fakeItems");
 
 async function createStore() {
   const response = await prisma.store.create({
@@ -25,20 +26,45 @@ async function updateUserGuestStatus() {
   });
 }
 
-async function putProduct(storeid, name, price, category, quantity, sku) {
+async function testProductFill(storeid, item) {
   const response = await prisma.product.create({
     data: {
       storeId: storeid,
-      name: name,
-      price: price,
-      category: category,
-      quantity: quantity,
-      sku: sku,
+      name: item.Name,
+      price: item.Price,
+      category: item.Category,
+      quantity: item.Quantity,
+      sku: item.SKU,
     },
   });
 
   console.log(response);
 }
+
+async function putProduct(storeid, name, price, category, quantity, sku) {
+  const fakeItems = items;
+
+  let test = await Promise.all(
+    fakeItems.map((product) => testProductFill(1, product))
+  );
+
+  console.log(test);
+
+  // const response = await prisma.product.create({
+  //   data: {
+  //     storeId: storeid,
+  //     name: name,
+  //     price: price,
+  //     category: category,
+  //     quantity: quantity,
+  //     sku: sku,
+  //   },
+  // });
+
+  // console.log(response);
+}
+
+putProduct();
 
 async function getItems(id) {
   const response = await prisma.budget.findFirst({

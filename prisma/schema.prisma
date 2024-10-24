@@ -33,6 +33,6 @@ model product {
   name String
   price Decimal 
   category String
-  quantity String 
+  quantity Int 
   sku String
 }

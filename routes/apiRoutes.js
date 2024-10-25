@@ -50,7 +50,11 @@ apiRouter.get(
 );
 
 // post a new store
-apiRouter.post("/stores", passport.authenticate("jwt", { session: false }));
+apiRouter.post(
+  "/stores",
+  passport.authenticate("jwt", { session: false }),
+  apiController.postStore
+);
 
 // get users
 apiRouter.get(

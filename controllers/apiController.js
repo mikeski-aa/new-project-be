@@ -2,7 +2,8 @@ const asyncHandler = require("express-async-handler");
 const { genPassword } = require("../utils/passportUtils");
 const { createNewUser, getGuestInfo } = require("../services/userCalls");
 const jwt = require("jsonwebtoken");
-const { getStores, getStore } = require("../services/storeCalls");
+const { getStores, getStore, addStore } = require("../services/storeCalls");
+const { body, query, param } = require("express-validator");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -75,3 +76,19 @@ exports.getStore = asyncHandler(async (req, res, next) => {
 
   return res.json(store);
 });
+
+exports.postStore = [
+  body("name").isLength({ min: 1, max: 30 }),
+  body("location").isLength({ min: 1, max: 30 }),
+
+  asyncHandler(async (req, res, next) => {
+    // call db service
+    const newStore = await addStore(
+      req.body.name,
+      req.body.location,
+      req.body.userId
+    );
+
+    return res.json(newStore);
+  }),
+];

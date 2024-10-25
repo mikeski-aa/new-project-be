@@ -60,14 +60,18 @@ exports.postGuestCreate = asyncHandler(async (req, res, next) => {
   return res.json({ token: token, user: returnObject });
 });
 
+// TO DO:
+// probably need to handle inputs to make sure they are valid
 exports.getStores = asyncHandler(async (req, res, next) => {
   const stores = await getStores(req.query.userid);
   console.log(stores);
   return res.json(stores);
 });
 
+// TO DO:
+// probably need to handle inputs to make sure they are valid
 exports.getStore = asyncHandler(async (req, res, next) => {
-  const store = await this.getStore(req.query.storeid);
+  const store = await getStore(req.query.storeid);
 
   return res.json(store);
 });

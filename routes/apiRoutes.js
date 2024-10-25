@@ -35,11 +35,22 @@ apiRouter.get(
 
 apiRouter.post("/login/guest", apiController.postGuestCreate);
 
+// get all stores
 apiRouter.get(
   "/stores",
   passport.authenticate("jwt", { session: false }),
   apiController.getStores
 );
+
+// get specific store
+apiRouter.get(
+  "/stores/store",
+  passport.authenticate("jwt", { session: false }),
+  apiController.getStore
+);
+
+// post a new store
+apiRouter.post("/stores", passport.authenticate("jwt", { session: false }));
 
 // get users
 apiRouter.get(

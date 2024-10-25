@@ -52,4 +52,21 @@ async function addStore(name, location, userId) {
   }
 }
 
-module.exports = { getStores, getStore, addStore };
+async function deleteStore(userid, storeid) {
+  try {
+    // checks user owns store
+    const response = await prisma.store.delete({
+      where: {
+        id: +storeid,
+        userId: +userid,
+      },
+    });
+
+    return true;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+module.exports = { getStores, getStore, addStore, deleteStore };

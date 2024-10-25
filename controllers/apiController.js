@@ -2,7 +2,12 @@ const asyncHandler = require("express-async-handler");
 const { genPassword } = require("../utils/passportUtils");
 const { createNewUser, getGuestInfo } = require("../services/userCalls");
 const jwt = require("jsonwebtoken");
-const { getStores, getStore, addStore } = require("../services/storeCalls");
+const {
+  getStores,
+  getStore,
+  addStore,
+  deleteStore,
+} = require("../services/storeCalls");
 const { body, query, param } = require("express-validator");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
@@ -77,6 +82,7 @@ exports.getStore = asyncHandler(async (req, res, next) => {
   return res.json(store);
 });
 
+// error handling needs to be added
 exports.postStore = [
   body("name").isLength({ min: 1, max: 30 }),
   body("location").isLength({ min: 1, max: 30 }),
@@ -90,5 +96,18 @@ exports.postStore = [
     );
 
     return res.json(newStore);
+  }),
+];
+
+// error handling needs to be added
+exports.deleteStore = [
+  body("userId").isNumeric(),
+  body("storeId").isNumeric(),
+
+  asyncHandler(async (req, res, next) => {
+    // call db service
+    const storeDelete = await deleteStore(req.body.userId, req.body.storeId);
+
+    res.json(true);
   }),
 ];

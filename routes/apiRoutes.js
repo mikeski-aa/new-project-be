@@ -59,7 +59,7 @@ apiRouter.post(
 apiRouter.delete(
   "/stores",
   passport.authenticate("jwt", { session: false }),
-  apicontro
+  apiController.deleteStore
 );
 
 // get users

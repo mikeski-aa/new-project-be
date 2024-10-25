@@ -36,4 +36,20 @@ async function getStore(storeId) {
   }
 }
 
-module.exports = { getStores, getStore };
+async function addStore(name, location, userId) {
+  try {
+    const respose = await prisma.store.create({
+      data: {
+        userId: +userId,
+        name: name,
+        location: location,
+      },
+    });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+module.exports = { getStores, getStore, addStore };

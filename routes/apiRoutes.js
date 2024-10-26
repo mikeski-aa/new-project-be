@@ -63,7 +63,7 @@ apiRouter.delete(
 );
 
 // update store name / location
-apiRouter.update(
+apiRouter.put(
   "/stores",
   passport.authenticate("jwt", { session: false }),
   apiController.updateStore

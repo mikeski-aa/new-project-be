@@ -126,6 +126,7 @@ exports.postStore = [
 ];
 
 // error handling needs to be added
+// this should also delete all store items right?
 exports.deleteStore = [
   body("userId").isNumeric(),
   body("storeId").isNumeric(),

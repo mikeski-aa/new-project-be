@@ -73,12 +73,15 @@ exports.postGuestCreate = asyncHandler(async (req, res, next) => {
 exports.getStores = [
   query("userid").isLength({ min: 1 }),
   asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    console.log(req.query.userid);
     if (!errors.isEmpty()) {
       console.log("query validation failed");
       // res.status(400).json({ message: "Input validation failed" });
       return false;
     }
     const stores = await getStores(req.query.userid);
+    console.log("here");
     console.log(stores);
     return res.json(stores);
   }),
@@ -89,6 +92,7 @@ exports.getStores = [
 exports.getStore = [
   query("storeid").isLength({ min: 1 }),
   asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log("body validation failed");
       // res.status(400).json({ message: "Input validation failed" });

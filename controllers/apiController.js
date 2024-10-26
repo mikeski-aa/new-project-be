@@ -8,7 +8,7 @@ const {
   addStore,
   deleteStore,
 } = require("../services/storeCalls");
-const { body, query, param } = require("express-validator");
+const { body, query, param, validationResult } = require("express-validator");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -68,19 +68,35 @@ exports.postGuestCreate = asyncHandler(async (req, res, next) => {
 
 // TO DO:
 // probably need to handle inputs to make sure they are valid
-exports.getStores = asyncHandler(async (req, res, next) => {
-  const stores = await getStores(req.query.userid);
-  console.log(stores);
-  return res.json(stores);
-});
+exports.getStores = [
+  query("userid").isLength({ min: 1 }),
+  asyncHandler(async (req, res, next) => {
+    if (!errors.isEmpty()) {
+      console.log("query validation failed");
+      // res.status(400).json({ message: "Input validation failed" });
+      return false;
+    }
+    const stores = await getStores(req.query.userid);
+    console.log(stores);
+    return res.json(stores);
+  }),
+];
 
 // TO DO:
 // probably need to handle inputs to make sure they are valid
-exports.getStore = asyncHandler(async (req, res, next) => {
-  const store = await getStore(req.query.storeid);
+exports.getStore = [
+  query("storeid").isLength({ min: 1 }),
+  asyncHandler(async (req, res, next) => {
+    if (!errors.isEmpty()) {
+      console.log("body validation failed");
+      // res.status(400).json({ message: "Input validation failed" });
+      return false;
+    }
+    const store = await getStore(req.query.storeid);
 
-  return res.json(store);
-});
+    return res.json(store);
+  }),
+];
 
 // error handling needs to be added
 exports.postStore = [
@@ -88,6 +104,14 @@ exports.postStore = [
   body("location").isLength({ min: 1, max: 30 }),
 
   asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      console.log("body validation failed");
+      // res.status(400).json({ message: "Input validation failed" });
+      return false;
+    }
+
     // call db service
     const newStore = await addStore(
       req.body.name,
@@ -105,6 +129,14 @@ exports.deleteStore = [
   body("storeId").isNumeric(),
 
   asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      console.log("body validation failed");
+      // res.status(400).json({ message: "Input validation failed" });
+      return false;
+    }
+
     // call db service
     const storeDelete = await deleteStore(req.body.userId, req.body.storeId);
 

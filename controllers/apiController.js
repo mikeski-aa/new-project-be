@@ -7,8 +7,10 @@ const {
   getStore,
   addStore,
   deleteStore,
+  updateStore,
 } = require("../services/storeCalls");
 const { body, query, param, validationResult } = require("express-validator");
+const { json } = require("express");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -140,6 +142,23 @@ exports.deleteStore = [
     // call db service
     const storeDelete = await deleteStore(req.body.userId, req.body.storeId);
 
-    res.json(true);
+    res.json(storeDelete);
+  }),
+];
+
+exports.updateStore = [
+  body("name").isLength({ min: 1, max: 30 }),
+  body("location").isLength({ min: 1, max: 30 }),
+  body("userid").isLength({ min: 1 }),
+  body("storeid").isLength({ min: 1 }),
+  asyncHandler(async (req, res, next) => {
+    const response = await updateStore(
+      req.body.userid,
+      req.body.storeid,
+      req.body.name,
+      req.body.location
+    );
+
+    return json(response);
   }),
 ];

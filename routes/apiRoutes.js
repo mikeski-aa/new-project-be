@@ -62,6 +62,13 @@ apiRouter.delete(
   apiController.deleteStore
 );
 
+// update store name / location
+apiRouter.update(
+  "/stores",
+  passport.authenticate("jwt", { session: false }),
+  apiController.updateStore
+);
+
 // get users
 apiRouter.get(
   "/users",

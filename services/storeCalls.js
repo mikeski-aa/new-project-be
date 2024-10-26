@@ -69,4 +69,25 @@ async function deleteStore(userid, storeid) {
   }
 }
 
-module.exports = { getStores, getStore, addStore, deleteStore };
+async function updateStore(userid, storeid, name, location) {
+  try {
+    const response = await prisma.store.update({
+      where: {
+        id: +storeid,
+        userId: +userid,
+      },
+      data: {
+        name: name,
+        location: location,
+      },
+    });
+
+    console.log(response);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+module.exports = { getStores, getStore, addStore, deleteStore, updateStore };

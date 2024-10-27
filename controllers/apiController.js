@@ -171,7 +171,9 @@ exports.updateStore = [
 
 exports.postProduct = asyncHandler(async (req, res, next) => {
   console.log(req.body.items);
-  console.log(req.body.storeid);
+
+  const response = await addProduct(req.body.items);
+  console.log(response);
 
   res.json(true);
 });

@@ -1,16 +1,9 @@
 const { prisma } = require("../config/db");
 
-async function addProduct(storeid, product) {
+async function addProduct(products) {
   try {
     const response = await prisma.product.createMany({
-      data: {
-        storeId: +storeid,
-        name: product.name,
-        price: +product.price,
-        category: product.category,
-        quantity: +product.quantity,
-        sku: product.sku,
-      },
+      data: products,
     });
 
     return response;

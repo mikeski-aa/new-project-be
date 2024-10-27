@@ -11,7 +11,7 @@ const {
 } = require("../services/storeCalls");
 const { body, query, param, validationResult } = require("express-validator");
 const { json } = require("express");
-const { addProduct } = require("../services/productCalls");
+const { addProduct, deleteProduct } = require("../services/productCalls");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -169,6 +169,7 @@ exports.updateStore = [
   }),
 ];
 
+// add new product or products to a specific store
 exports.postProduct = asyncHandler(async (req, res, next) => {
   console.log(req.body.items);
 
@@ -176,4 +177,10 @@ exports.postProduct = asyncHandler(async (req, res, next) => {
   console.log(response);
 
   res.json(true);
+});
+
+exports.deleteProduct = asyncHandler(async (req, res, next) => {
+  const response = await deleteProduct(req.query.itemid);
+
+  res.json(response);
 });

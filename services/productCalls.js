@@ -13,4 +13,19 @@ async function addProduct(products) {
   }
 }
 
-module.exports = { addProduct };
+async function deleteProduct(productid) {
+  try {
+    const response = await prisma.product.delete({
+      where: {
+        id: +productid,
+      },
+    });
+
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
+module.exports = { addProduct, deleteProduct };

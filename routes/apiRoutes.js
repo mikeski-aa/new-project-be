@@ -69,10 +69,18 @@ apiRouter.put(
   apiController.updateStore
 );
 
+// add new products to specific store
 apiRouter.post(
   "/product",
   passport.authenticate("jwt", { session: false }),
   apiController.postProduct
+);
+
+//delete specific product
+apiRouter.delete(
+  "/product",
+  passport.authenticate("jwt", { session: false }),
+  apiController.deleteProduct
 );
 
 // get users

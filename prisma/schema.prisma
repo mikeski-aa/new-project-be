@@ -35,4 +35,11 @@ model product {
   category String
   quantity Int 
   sku String
+  purchasePrice Float
+}
+
+model salereport {
+  id Int @unique @default(autoincrement())
+  storeId Int
+
 }

@@ -28,6 +28,7 @@ async function updateUserGuestStatus() {
 
 async function testProductFill(storeid, item) {
   const newPrice = parseFloat(item.Price.toFixed(2));
+  const newPurchasePrice = parseFloat(item.PurchasePrice.toFixed(2));
 
   const response = await prisma.product.create({
     data: {
@@ -37,6 +38,7 @@ async function testProductFill(storeid, item) {
       category: item.Category,
       quantity: item.Quantity,
       sku: item.SKU,
+      purchasePrice: newPurchasePrice,
     },
   });
 

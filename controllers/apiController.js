@@ -101,6 +101,7 @@ exports.getStore = [
     }
     const store = await getStore(req.query.storeid);
 
+    console.log(store);
     return res.json(store);
   }),
 ];

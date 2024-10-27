@@ -38,8 +38,22 @@ model product {
   purchasePrice Float
 }
 
-model salereport {
+model soldProduct {
   id Int @unique @default(autoincrement())
   storeId Int
+  price Float
+  purchasePrice Float 
+  sku String 
+  category String 
+  name String 
+  report eodreport @relation(fields: [reportId], references: [id])
+  reportId Int 
+}
+
+model eodreport {
+  id Int @unique @default(autoincrement())
+  storeId Int
+  date DateTime @default(now())
+  soldProducts soldProduct[]
 
 }

@@ -69,6 +69,12 @@ apiRouter.put(
   apiController.updateStore
 );
 
+apiRouter.post(
+  "/product",
+  passport.authenticate("jwt", { session: false }),
+  apiController.postProduct
+);
+
 // get users
 apiRouter.get(
   "/users",

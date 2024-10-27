@@ -11,6 +11,7 @@ const {
 } = require("../services/storeCalls");
 const { body, query, param, validationResult } = require("express-validator");
 const { json } = require("express");
+const { addProduct } = require("../services/productCalls");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -164,6 +165,13 @@ exports.updateStore = [
       req.body.location
     );
 
-    return json(response);
+    res.json(response);
   }),
 ];
+
+exports.postProduct = asyncHandler(async (req, res, next) => {
+  console.log(req.body.items);
+  console.log(req.body.storeid);
+
+  res.json(true);
+});

@@ -5,6 +5,7 @@ const items = [
     Price: 899.99,
     Category: "Bikes",
     Quantity: 5,
+    PurchasePrice: this.price * 0.2,
   },
   {
     SKU: "BIKE002",
@@ -283,5 +284,7 @@ const carItems = [
     Quantity: 15,
   },
 ];
+
+console.log(items);
 
 module.exports = { items, carItems };

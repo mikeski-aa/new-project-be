@@ -25,7 +25,11 @@ async function getStore(storeId) {
         id: +storeId,
       },
       include: {
-        products: true,
+        products: {
+          orderBy: {
+            sku: "asc",
+          },
+        },
       },
     });
 

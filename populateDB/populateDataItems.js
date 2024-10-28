@@ -53,8 +53,8 @@ async function putProduct(item, storeId) {
   console.log(test);
 }
 
-putProduct(carItems, 2);
-putProduct(items, 1);
+// putProduct(carItems, 2);
+// putProduct(items, 1);
 
 async function getProducts(id) {
   const response = await prisma.store.findFirst({
@@ -83,3 +83,11 @@ async function getProducts(id) {
 // putItem(2, "Sept test", 4.22, "2024-07-05");
 
 // updateUserGuestStatus();
+
+// function mapTest(items, id) {
+//   items.map((item) => (item.reportId = id));
+
+//   console.log(items);
+// }
+
+// mapTest(items, 2);

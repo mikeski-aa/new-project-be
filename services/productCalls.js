@@ -28,4 +28,22 @@ async function deleteProduct(productid) {
   }
 }
 
-module.exports = { addProduct, deleteProduct };
+async function updateProduct(sku, number, storeid) {
+  try {
+    const response = await prisma.product.update({
+      where: {
+        sku: sku,
+        storeId: storeid,
+      },
+      data: {
+        quantity: this.quantity - number,
+      },
+    });
+
+    return true;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+module.exports = { addProduct, deleteProduct, updateProduct };

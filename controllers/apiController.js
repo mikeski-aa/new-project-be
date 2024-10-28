@@ -11,7 +11,11 @@ const {
 } = require("../services/storeCalls");
 const { body, query, param, validationResult } = require("express-validator");
 const { json } = require("express");
-const { addProduct, deleteProduct } = require("../services/productCalls");
+const {
+  addProduct,
+  deleteProduct,
+  updateProduct,
+} = require("../services/productCalls");
 const { generateReport, addSoldProducts } = require("../services/reportCalls");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
@@ -201,6 +205,21 @@ exports.createReport = asyncHandler(async (req, res, next) => {
     req.body.soldItems,
     generatedReport.id
   );
+
+  // update store.
+  // for (let x = 0; x < req.body.soldItems.length; x++) {
+  //   await updateProduct(
+  //     req.body.soldItems[x].sku,
+  //     req.body.soldItems[x].quantitySold,
+  //     req.body.storeId
+  //   );
+  // }
+
+  const updatePromiseAll = req.body.soldItems.map((item) =>
+    updateProduct(item.sku, item.quantitySold, req.body.storeId)
+  );
+
+  await Promise.all(updatePromiseAll);
 
   console.log(addItems);
 

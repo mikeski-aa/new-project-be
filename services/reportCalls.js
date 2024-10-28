@@ -21,9 +21,13 @@ async function generateReport(storeid, totalValue) {
 async function addSoldProducts(soldItems, reportId) {
   soldItems.map((item) => (item.reportId = reportId));
 
+  const itemsWithoutId = soldItems.map(({ id, ...rest }) => rest);
+  const itemsWithoutQuantity = itemsWithoutId.map(
+    ({ quantity, ...rest }) => rest
+  );
   try {
     const response = await prisma.soldproduct.createMany({
-      data: soldItems,
+      data: itemsWithoutQuantity,
     });
 
     console.log(response);

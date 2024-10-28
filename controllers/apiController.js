@@ -216,7 +216,7 @@ exports.createReport = asyncHandler(async (req, res, next) => {
   // }
 
   const updatePromiseAll = req.body.soldItems.map((item) =>
-    updateProduct(item.sku, item.quantitySold, req.body.storeId)
+    updateProduct(item.sku, item.quantitySold, item.quantity, req.body.storeId)
   );
 
   await Promise.all(updatePromiseAll);

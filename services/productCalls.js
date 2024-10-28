@@ -28,15 +28,18 @@ async function deleteProduct(productid) {
   }
 }
 
-async function updateProduct(sku, number, storeid) {
+async function updateProduct(sku, number, quantity, storeid) {
+  const newQuant = quantity - number;
   try {
     const response = await prisma.product.update({
       where: {
-        sku: sku,
-        storeId: storeid,
+        uniqKey: {
+          sku: sku,
+          storeId: +storeid,
+        },
       },
       data: {
-        quantity: this.quantity - number,
+        quantity: newQuant,
       },
     });
 

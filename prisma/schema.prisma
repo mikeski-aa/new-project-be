@@ -34,8 +34,10 @@ model product {
   price Float 
   category String
   quantity Int 
-  sku String
+  sku String 
   purchasePrice Float
+
+  @@unique (name: "uniqKey", [sku, storeId])
 }
 
 model soldproduct {
@@ -47,7 +49,6 @@ model soldproduct {
   category String 
   name String 
   quantitySold Int
-  quantity Int
   report eodreport @relation(fields: [reportId], references: [id])
   reportId Int 
 }

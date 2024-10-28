@@ -22,7 +22,7 @@ async function addSoldProducts(soldItems, reportId) {
   soldItems.map((item) => (item.reportId = reportId));
 
   try {
-    const response = await prisma.soldProduct.createMany({
+    const response = await prisma.soldproduct.createMany({
       data: soldItems,
     });
 

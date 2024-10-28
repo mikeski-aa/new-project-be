@@ -38,7 +38,7 @@ model product {
   purchasePrice Float
 }
 
-model soldProduct {
+model soldproduct {
   id Int @unique @default(autoincrement())
   storeId Int
   price Float
@@ -47,6 +47,7 @@ model soldProduct {
   category String 
   name String 
   quantitySold Int
+  quantity Int
   report eodreport @relation(fields: [reportId], references: [id])
   reportId Int 
 }
@@ -55,8 +56,8 @@ model eodreport {
   id Int @unique @default(autoincrement())
   storeId Int
   date DateTime @default(now())
-  soldProducts soldProduct[]
+  soldProducts soldproduct[]
   totalSaleValue Float 
-  
+
 
 }

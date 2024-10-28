@@ -187,7 +187,11 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
   res.json(response);
 });
 
+// we need to generate a new report
+// add items to that report
+// we also need to remove item quantity from the actual list of DB items
 exports.createReport = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
   const generatedReport = await generateReport(
     req.body.storeId,
     req.body.totalValue

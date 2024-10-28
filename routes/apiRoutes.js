@@ -86,7 +86,8 @@ apiRouter.delete(
 // create report
 apiRouter.post(
   "/report",
-  passport.authenticate("jwt", { session: false }, apiController.createReport)
+  passport.authenticate("jwt", { session: false }),
+  apiController.createReport
 );
 
 // get users

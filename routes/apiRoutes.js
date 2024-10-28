@@ -83,6 +83,12 @@ apiRouter.delete(
   apiController.deleteProduct
 );
 
+// create report
+apiRouter.post(
+  "/report",
+  passport.authenticate("jwt", { session: false }, apiController.createReport)
+);
+
 // get users
 apiRouter.get(
   "/users",

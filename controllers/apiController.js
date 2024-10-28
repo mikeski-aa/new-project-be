@@ -12,6 +12,7 @@ const {
 const { body, query, param, validationResult } = require("express-validator");
 const { json } = require("express");
 const { addProduct, deleteProduct } = require("../services/productCalls");
+const { generateReport, addSoldProducts } = require("../services/reportCalls");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -184,4 +185,20 @@ exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const response = await deleteProduct(req.query.itemid);
 
   res.json(response);
+});
+
+exports.createReport = asyncHandler(async (req, res, next) => {
+  const generatedReport = await generateReport(
+    req.body.storeId,
+    req.body.totalValue
+  );
+
+  const addItems = await addSoldProducts(
+    req.body.soldItems,
+    generatedReport.id
+  );
+
+  console.log(addItems);
+
+  res.json(true);
 });

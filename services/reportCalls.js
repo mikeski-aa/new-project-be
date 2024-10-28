@@ -16,7 +16,11 @@ async function generateReport(storeid, totalValue) {
   }
 }
 
-async function addSoldProducts(soldItems) {
+// first we need to map the report ID to the new items in order to correctly
+// represent relationship in DB
+async function addSoldProducts(soldItems, reportId) {
+  soldItems.map((item) => (item.reportId = reportId));
+
   try {
     const response = await prisma.soldProduct.createMany({
       data: soldItems,

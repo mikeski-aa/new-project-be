@@ -91,3 +91,21 @@ async function getProducts(id) {
 // }
 
 // mapTest(items, 2);
+
+async function dummyReports(storeid, value, date) {
+  const newDate = new Date(date);
+
+  const report = await prisma.eodreport.create({
+    data: {
+      storeId: storeid,
+      totalSaleValue: value,
+      date: newDate,
+    },
+  });
+
+  console.log(report);
+}
+
+// dummyReports(8, 57547, "02-06-2024");
+// dummyReports(8, 57547, "02-07-2024");
+// dummyReports(8, 57547, "02-10-2024");

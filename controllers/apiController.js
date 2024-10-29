@@ -152,7 +152,7 @@ exports.deleteStore = [
     // call db service
     const storeDelete = await deleteStore(req.body.userId, req.body.storeId);
 
-    res.json(storeDelete);
+    return res.json(storeDelete);
   }),
 ];
 
@@ -169,7 +169,7 @@ exports.updateStore = [
       req.body.location
     );
 
-    res.json(response);
+    return res.json(response);
   }),
 ];
 
@@ -180,13 +180,13 @@ exports.postProduct = asyncHandler(async (req, res, next) => {
   const response = await addProduct(req.body.items);
   console.log(response);
 
-  res.json(true);
+  return res.json(response);
 });
 
 exports.deleteProduct = asyncHandler(async (req, res, next) => {
   const response = await deleteProduct(req.query.itemid);
 
-  res.json(response);
+  return res.json(response);
 });
 
 // we need to generate a new report
@@ -221,5 +221,5 @@ exports.createReport = asyncHandler(async (req, res, next) => {
 
   console.log(addItems);
 
-  res.json(true);
+  return res.json(generatedReport);
 });

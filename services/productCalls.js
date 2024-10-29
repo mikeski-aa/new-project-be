@@ -6,6 +6,8 @@ async function addProduct(products) {
       data: products,
     });
 
+    console.log("////////");
+    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

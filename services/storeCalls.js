@@ -51,15 +51,35 @@ async function addStore(name, location, userId) {
         location: location,
       },
     });
-    return response;
+    return respose;
   } catch (error) {
     console.log(error);
     return error;
   }
 }
 
+// deleting store needs to delete store items and also reports
 async function deleteStore(userid, storeid) {
+  console.log("i am here");
   try {
+    const deleteSoldProduct = await prisma.soldproduct.deleteMany({
+      where: {
+        storeId: +storeid,
+      },
+    });
+
+    const deleteReports = await prisma.eodreport.deleteMany({
+      where: {
+        storeId: +storeid,
+      },
+    });
+
+    const deleteItems = await prisma.product.deleteMany({
+      where: {
+        storeId: +storeid,
+      },
+    });
+
     // checks user owns store
     const response = await prisma.store.delete({
       where: {

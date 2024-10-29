@@ -51,10 +51,10 @@ async function addStore(name, location, userId) {
         location: location,
       },
     });
-    return true;
+    return response;
   } catch (error) {
     console.log(error);
-    return false;
+    return error;
   }
 }
 
@@ -68,7 +68,7 @@ async function deleteStore(userid, storeid) {
       },
     });
 
-    return true;
+    return response;
   } catch (error) {
     console.log(error);
     return error;
@@ -89,7 +89,7 @@ async function updateStore(userid, storeid, name, location) {
     });
 
     console.log(response);
-    return true;
+    return response;
   } catch (error) {
     console.log(error);
     return error;

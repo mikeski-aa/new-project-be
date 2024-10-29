@@ -13,7 +13,7 @@ async function createNewUser(username, hash) {
     return response;
   } catch (error) {
     console.log(error);
-    return { error: error };
+    return error;
   }
 }
 
@@ -28,7 +28,7 @@ async function getGuestInfo(name) {
     return response;
   } catch (error) {
     console.log(error);
-    return { error: error };
+    return error;
   }
 }
 

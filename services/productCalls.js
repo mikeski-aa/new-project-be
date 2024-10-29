@@ -21,10 +21,10 @@ async function deleteProduct(productid) {
       },
     });
 
-    return true;
+    return response;
   } catch (error) {
     console.log(error);
-    return false;
+    return error;
   }
 }
 
@@ -43,9 +43,10 @@ async function updateProduct(sku, number, quantity, storeid) {
       },
     });
 
-    return true;
+    return response;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 

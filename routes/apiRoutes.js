@@ -40,7 +40,6 @@ apiRouter.post("/login/guest", apiController.postGuestCreate);
 // get all stores
 apiRouter.get(
   "/stores",
-  tokenValidate,
   passport.authenticate("jwt", { session: false }),
   apiController.getStores
 );

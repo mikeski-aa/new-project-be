@@ -58,11 +58,3 @@ exports.loginValidation = [
     return next();
   },
 ];
-
-exports.tokenValidate = [
-  function (req, res, next) {
-    console.log(req.headers.authorization);
-
-    return next();
-  },
-];

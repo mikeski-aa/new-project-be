@@ -4,6 +4,7 @@ const apiController = require("../controllers/apiController");
 const {
   registerValidation,
   loginValidation,
+  tokenValidate,
 } = require("../middleware/validationMiddleware");
 const { prisma } = require("../config/db");
 const asyncHandler = require("express-async-handler");
@@ -33,11 +34,13 @@ apiRouter.get(
   apiController.getLogin
 );
 
+// guest login
 apiRouter.post("/login/guest", apiController.postGuestCreate);
 
 // get all stores
 apiRouter.get(
   "/stores",
+  tokenValidate,
   passport.authenticate("jwt", { session: false }),
   apiController.getStores
 );

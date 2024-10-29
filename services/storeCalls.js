@@ -1,4 +1,5 @@
 const { prisma } = require("../config/db");
+const { report } = require("../routes");
 
 async function getStores(id) {
   try {
@@ -30,6 +31,7 @@ async function getStore(storeId) {
             sku: "asc",
           },
         },
+        reports: true,
       },
     });
 

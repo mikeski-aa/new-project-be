@@ -35,6 +35,13 @@ async function getStore(storeId) {
           orderBy: {
             date: "asc",
           },
+          include: {
+            soldProducts: {
+              orderBy: {
+                sku: "asc",
+              },
+            },
+          },
         },
       },
     });

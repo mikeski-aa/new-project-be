@@ -58,11 +58,13 @@ async function revertQuantityUpdate(sku, numberSold, storeid) {
       where: {
         uniqKey: {
           sku: sku,
-          storeId: storeid,
+          storeId: +storeid,
         },
       },
       data: {
-        quantity: quantity + numberSold,
+        quantity: {
+          increment: numberSold,
+        },
       },
     });
 

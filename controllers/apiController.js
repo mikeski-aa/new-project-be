@@ -236,13 +236,18 @@ exports.revertProductQuantitySold = asyncHandler(async (req, res, next) => {
   // const response = await revertQuantityUpdate()
 
   const updatePromiseAll = req.body.soldProducts.map((product) =>
-    revertQuantityUpdate(product.sku, product.numberSold, product.storeid)
+    revertQuantityUpdate(product.sku, product.quantitySold, product.storeId)
   );
-  return res.json("xd");
+
+  const response = await Promise.all(updatePromiseAll);
+
+  return res.json(response);
 });
 
 exports.deleteReportAndItems = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.reportid);
 
-  return res.json("xp");
+  await deleteEodReportItems(req.body.reportid);
+  const respose = await deleteEodReport(req.body.reportid);
+  return res.json(respose);
 });

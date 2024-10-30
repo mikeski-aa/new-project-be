@@ -43,7 +43,7 @@ async function deleteEodReportItems(reportid) {
   try {
     const response = await prisma.soldproduct.deleteMany({
       where: {
-        reporId: +reportid,
+        reportId: +reportid,
       },
     });
 
@@ -60,7 +60,7 @@ async function deleteEodReport(reportid) {
   try {
     const response = await prisma.eodreport.delete({
       where: {
-        reporId: +reportid,
+        id: +reportid,
       },
     });
 

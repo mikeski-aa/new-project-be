@@ -110,9 +110,7 @@ apiRouter.delete(
 apiRouter.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
-  (req, res, next) => {
-    console.log(req.user);
-  }
+  apiController.deleteReportAndItems
 );
 
 module.exports = apiRouter;

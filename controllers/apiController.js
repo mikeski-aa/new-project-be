@@ -232,8 +232,12 @@ exports.createReport = asyncHandler(async (req, res, next) => {
 
 // these two controllers take care of revert and delete
 exports.revertProductQuantitySold = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.soldProducts);
+  // const response = await revertQuantityUpdate()
 
+  const updatePromiseAll = req.body.soldProducts.map((product) =>
+    revertQuantityUpdate(product.sku, product.numberSold, product.storeid)
+  );
   return res.json("xd");
 });
 

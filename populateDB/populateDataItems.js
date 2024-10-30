@@ -106,6 +106,6 @@ async function dummyReports(storeid, value, date) {
   console.log(report);
 }
 
-// dummyReports(8, 57547, "02-06-2024");
-// dummyReports(8, 57547, "02-07-2024");
-// dummyReports(8, 57547, "02-10-2024");
+dummyReports(8, 57547, "02-03-2024");
+dummyReports(8, 57547, "02-05-2024");
+dummyReports(8, 57547, "02-08-2024");

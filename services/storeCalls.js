@@ -31,7 +31,11 @@ async function getStore(storeId) {
             sku: "asc",
           },
         },
-        reports: true,
+        reports: {
+          orderBy: {
+            date: "asc",
+          },
+        },
       },
     });
 

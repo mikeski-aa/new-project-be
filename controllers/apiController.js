@@ -236,7 +236,15 @@ exports.revertProductQuantitySold = asyncHandler(async (req, res, next) => {
   // const response = await revertQuantityUpdate()
 
   const updatePromiseAll = req.body.soldProducts.map((product) =>
-    revertQuantityUpdate(product.sku, product.quantitySold, product.storeId)
+    revertQuantityUpdate(
+      product.sku,
+      product.quantitySold,
+      product.storeId,
+      product.price,
+      product.purchasePrice,
+      product.category,
+      product.name
+    )
   );
 
   const response = await Promise.all(updatePromiseAll);

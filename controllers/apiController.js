@@ -15,8 +15,14 @@ const {
   addProduct,
   deleteProduct,
   updateProduct,
+  revertQuantityUpdate,
 } = require("../services/productCalls");
-const { generateReport, addSoldProducts } = require("../services/reportCalls");
+const {
+  generateReport,
+  addSoldProducts,
+  deleteEodReport,
+  deleteEodReportItems,
+} = require("../services/reportCalls");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -222,4 +228,17 @@ exports.createReport = asyncHandler(async (req, res, next) => {
   console.log(addItems);
 
   return res.json(generatedReport);
+});
+
+// these two controllers take care of revert and delete
+exports.revertProductQuantitySold = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
+
+  return res.json("xd");
+});
+
+exports.deleteReportAndItems = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
+
+  return res.json("xp");
 });

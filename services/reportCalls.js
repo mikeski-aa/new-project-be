@@ -39,4 +39,43 @@ async function addSoldProducts(soldItems, reportId) {
   }
 }
 
-module.exports = { generateReport, addSoldProducts };
+async function deleteEodReportItems(reportid) {
+  try {
+    const response = await prisma.soldproduct.deleteMany({
+      where: {
+        reporId: +reportid,
+      },
+    });
+
+    console.log(response);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+async function deleteEodReport(reportid) {
+  try {
+    const response = await prisma.eodreport.delete({
+      where: {
+        reporId: +reportid,
+      },
+    });
+
+    console.log(response);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+module.exports = {
+  generateReport,
+  addSoldProducts,
+  deleteEodReportItems,
+  deleteEodReport,
+};

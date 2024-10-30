@@ -92,6 +92,20 @@ apiRouter.post(
   apiController.createReport
 );
 
+// revert quantity change for product
+apiRouter.put(
+  "/report",
+  passport.authenticate("jwt", { session: false }),
+  apiController.revertProductQuantitySold
+);
+
+// delete eod report
+apiRouter.delete(
+  "/report",
+  passport.authenticate("jwt", { session: false }),
+  apiController.deleteReportAndItems
+);
+
 // get users
 apiRouter.get(
   "/users",

@@ -52,4 +52,31 @@ async function updateProduct(sku, number, quantity, storeid) {
   }
 }
 
-module.exports = { addProduct, deleteProduct, updateProduct };
+async function revertQuantityUpdate(sku, numberSold, storeid) {
+  try {
+    const response = await prisma.product.update({
+      where: {
+        uniqKey: {
+          sku: sku,
+          storeId: storeid,
+        },
+      },
+      data: {
+        quantity: quantity + numberSold,
+      },
+    });
+
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+module.exports = {
+  addProduct,
+  deleteProduct,
+  updateProduct,
+  revertQuantityUpdate,
+};

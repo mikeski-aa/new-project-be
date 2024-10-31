@@ -97,7 +97,7 @@ async function revertQuantityUpdate(
       const response = await prisma.product.create({
         data: {
           quantity: numberSold,
-          ski: sku,
+          sku: sku,
           storeId: storeid,
           price: price,
           purchasePrice: purchasePrice,

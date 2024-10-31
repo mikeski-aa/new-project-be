@@ -23,6 +23,7 @@ model store {
   products product[]
   location String
   reports eodreport[]
+  orders stockorder[] 
   picture String @default("https://mainepointmarketing.com/x/cdn/?https://storage.googleapis.com/production-homestead-v1-0-1/801/204801/Y1SvJwaG/593d08ddcde4452388675a300edb922e")
 }
 
@@ -61,6 +62,21 @@ model eodreport {
   date DateTime @default(now())
   soldProducts soldproduct[]
   totalSaleValue Float 
+}
 
+model stockorder {
+  id Int @unique @default(autoincrement())
+  store store @relation(fields: [storeId], references: [id])
+  storeId Int
+  date DateTime @default(now())
+  totalvalue Int
+  itemsordered ordereditem[]
+}
 
+model ordereditem {
+  id Int @unique @default(autoincrement())
+  stockorder stockorder @relation(fields: [orderId], references: [id])
+  orderId Int
+  sku String
+  quantityordered Int
 }

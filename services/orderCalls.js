@@ -5,7 +5,7 @@ async function createOrder(storeid, tval) {
     const response = await prisma.stockorder.create({
       data: {
         storeId: storeid,
-        totalvalue: tval,
+        totalvalue: +tval,
       },
     });
 
@@ -20,9 +20,9 @@ async function createOrderItem(orderId, sku, quantityordered) {
   try {
     const response = await prisma.ordereditem.create({
       data: {
-        orderId: orderId,
+        orderId: +orderId,
         sku: sku,
-        quantityordered: quantityordered,
+        quantityordered: +quantityordered,
       },
     });
 

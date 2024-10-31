@@ -24,6 +24,8 @@ const {
   deleteEodReportItems,
 } = require("../services/reportCalls");
 
+const { createOrder, createOrderItem } = require("../services/orderCalls");
+
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
   const hash = await genPassword(req.body.password);
@@ -261,5 +263,26 @@ exports.deleteReportAndItems = asyncHandler(async (req, res, next) => {
 });
 
 exports.orderCreation = asyncHandler(async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.orderProducts);
+
+  const totalValue = req.body.orderProducts.reduce(
+    (total, current) => total + current.purchasePrice * current.quantity,
+    0
+  );
+
+  console.log(totalValue);
+
+  const response = await createOrder(
+    req.body.orderProducts[0].storeId,
+    totalValue
+  );
+
+  const mappedItems = req.body.orderProducts.map((item) =>
+    createOrderItem(response.storeId, item.sku, item.quantity)
+  );
+
+  const mappedresponse = await Promise.all(mappedItems);
+  console.log(response);
+  console.log(mappedresponse);
+  res.json("xd");
 });

@@ -259,3 +259,7 @@ exports.deleteReportAndItems = asyncHandler(async (req, res, next) => {
   const respose = await deleteEodReport(req.body.reportid);
   return res.json(respose);
 });
+
+exports.orderCreation = asyncHandler(async (req, res, next) => {
+  console.log(req.body);
+});

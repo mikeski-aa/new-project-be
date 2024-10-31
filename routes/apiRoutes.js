@@ -106,6 +106,13 @@ apiRouter.delete(
   apiController.deleteReportAndItems
 );
 
+// create report
+apiRouter.post(
+  "/orders",
+  passport.authenticate("jwt", { session: false }),
+  apiController.orderCreation
+);
+
 // get users
 apiRouter.get(
   "/users",

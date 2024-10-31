@@ -17,6 +17,7 @@ async function createOrder(storeid, tval) {
 }
 
 async function createOrderItem(orderId, sku, quantityordered) {
+  console.log(orderId, sku, quantityordered);
   try {
     const response = await prisma.ordereditem.create({
       data: {

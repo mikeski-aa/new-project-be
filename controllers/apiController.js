@@ -278,7 +278,7 @@ exports.orderCreation = asyncHandler(async (req, res, next) => {
   );
 
   const mappedItems = req.body.orderProducts.map((item) =>
-    createOrderItem(response.storeId, item.sku, item.quantity)
+    createOrderItem(response.id, item.sku, item.quantity)
   );
 
   const mappedresponse = await Promise.all(mappedItems);

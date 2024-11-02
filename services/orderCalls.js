@@ -34,4 +34,24 @@ async function createOrderItem(orderId, sku, quantityordered) {
   }
 }
 
-module.exports = { createOrder, createOrderItem };
+async function getOrders(storeid) {
+  try {
+    const response = await prisma.stockorder.findMany({
+      where: {
+        storeId: +storeid,
+      },
+      include: {
+        itemsordered: true,
+      },
+      orderBy: {
+        data: "asc",
+      },
+    });
+
+    return response;
+  } catch (error) {
+    throw new Error("Error fetching orders");
+  }
+}
+
+module.exports = { createOrder, createOrderItem, getOrders };

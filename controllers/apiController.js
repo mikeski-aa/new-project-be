@@ -24,7 +24,11 @@ const {
   deleteEodReportItems,
 } = require("../services/reportCalls");
 
-const { createOrder, createOrderItem } = require("../services/orderCalls");
+const {
+  createOrder,
+  createOrderItem,
+  getOrders,
+} = require("../services/orderCalls");
 
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
@@ -285,4 +289,12 @@ exports.orderCreation = asyncHandler(async (req, res, next) => {
   console.log(response);
   console.log(mappedresponse);
   res.json("xd");
+});
+
+exports.getOrdersForStore = asyncHandler(async (req, res, next) => {
+  console.log(req.query.storeid);
+  const ordersForStore = await getOrders(req.query.storeid);
+
+  console.log(ordersForStore);
+  return res.json(ordersForStore);
 });

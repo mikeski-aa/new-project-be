@@ -113,6 +113,13 @@ apiRouter.post(
   apiController.orderCreation
 );
 
+// get stores for specific id
+apiRouter.get(
+  "/orders",
+  passport.authenticate("jwt", { session: false }),
+  apiController.getOrdersForStore
+);
+
 // get users
 apiRouter.get(
   "/users",

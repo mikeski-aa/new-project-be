@@ -22,6 +22,7 @@ const {
   addSoldProducts,
   deleteEodReport,
   deleteEodReportItems,
+  getReportInfo,
 } = require("../services/reportCalls");
 
 const {
@@ -297,4 +298,10 @@ exports.getOrdersForStore = asyncHandler(async (req, res, next) => {
 
   console.log(ordersForStore);
   return res.json(ordersForStore);
+});
+
+exports.getReportData = asyncHandler(async (req, res, next) => {
+  const reportsForStore = await getReportInfo(req.query.storeid);
+
+  return res.json(reportsForStore);
 });

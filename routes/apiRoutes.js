@@ -106,6 +106,9 @@ apiRouter.delete(
   apiController.deleteReportAndItems
 );
 
+// get report data
+apiRouter.get("/report", passport.authenticate("jwt", { session: false }));
+
 // create report
 apiRouter.post(
   "/orders",

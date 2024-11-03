@@ -35,6 +35,7 @@ async function createOrderItem(orderId, sku, quantityordered) {
 }
 
 async function getOrders(storeid) {
+  console.log("yes");
   try {
     const response = await prisma.stockorder.findMany({
       where: {
@@ -42,9 +43,6 @@ async function getOrders(storeid) {
       },
       include: {
         itemsordered: true,
-      },
-      orderBy: {
-        data: "asc",
       },
     });
 

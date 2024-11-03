@@ -73,9 +73,30 @@ async function deleteEodReport(reportid) {
   }
 }
 
+async function getReportInfo(storeid) {
+  try {
+    const response = await prisma.eodreport.get({
+      where: {
+        id: +storeid,
+      },
+      include: {
+        soldProducts: true,
+      },
+    });
+
+    console.log(response);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 module.exports = {
   generateReport,
   addSoldProducts,
   deleteEodReportItems,
   deleteEodReport,
+  getReportInfo,
 };

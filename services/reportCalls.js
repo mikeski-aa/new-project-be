@@ -77,7 +77,7 @@ async function getReportInfo(storeid) {
   try {
     const response = await prisma.eodreport.findMany({
       where: {
-        id: +storeid,
+        storeId: +storeid,
       },
       include: {
         soldProducts: true,

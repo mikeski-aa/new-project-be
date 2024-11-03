@@ -303,5 +303,7 @@ exports.getOrdersForStore = asyncHandler(async (req, res, next) => {
 exports.getReportData = asyncHandler(async (req, res, next) => {
   const reportsForStore = await getReportInfo(req.query.storeid);
 
+  console.log("REPORTS FOR STORE /////////////////");
+  console.log(reportsForStore);
   return res.json(reportsForStore);
 });

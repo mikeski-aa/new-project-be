@@ -107,7 +107,11 @@ apiRouter.delete(
 );
 
 // get report data
-apiRouter.get("/report", passport.authenticate("jwt", { session: false }));
+apiRouter.get(
+  "/report",
+  passport.authenticate("jwt", { session: false }),
+  apiController.getReportData
+);
 
 // create report
 apiRouter.post(

@@ -75,7 +75,7 @@ async function deleteEodReport(reportid) {
 
 async function getReportInfo(storeid) {
   try {
-    const response = await prisma.eodreport.get({
+    const response = await prisma.eodreport.findMany({
       where: {
         id: +storeid,
       },

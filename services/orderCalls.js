@@ -44,6 +44,9 @@ async function getOrders(storeid) {
       include: {
         itemsordered: true,
       },
+      orderBy: {
+        date: "asc",
+      },
     });
 
     return response;

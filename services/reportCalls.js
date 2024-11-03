@@ -82,6 +82,9 @@ async function getReportInfo(storeid) {
       include: {
         soldProducts: true,
       },
+      orderBy: {
+        date: "asc",
+      },
     });
 
     console.log(response);

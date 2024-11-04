@@ -35,6 +35,8 @@ const {
   getOrders,
 } = require("../services/orderCalls");
 
+const { items, carItems } = require("../populateDB/fakeItems");
+const { putProduct, createStore } = require("../services/sampleDataForGuest");
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
   const hash = await genPassword(req.body.password);

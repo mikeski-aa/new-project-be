@@ -34,6 +34,7 @@ const {
   createOrder,
   createOrderItem,
   getOrders,
+  createOrderForDate,
 } = require("../services/orderCalls");
 
 const { items, carItems } = require("../populateDB/fakeItems");
@@ -380,6 +381,26 @@ exports.createGuestAccountBase = asyncHandler(async (req, res, next) => {
 
   const reportCreated = await Promise.all(reportStoreOne);
   const reportCreatedTwo = await Promise.all(reportStoreTwo);
+
+  const orderStoreOne = dates.map((date) =>
+    createOrderForDate(
+      storePromise[0].id,
+      Math.floor(Math.random() * (700 - 105 + 1) + 105),
+      date
+    )
+  );
+
+  const orderStoreTwo = dates.map((date) =>
+    createOrderForDate(
+      storePromise[1].id,
+      Math.floor(Math.random() * (700 - 105 + 1) + 105),
+      date
+    )
+  );
+
+  const ordersCreated = await Promise.all(orderStoreOne);
+  const ordersCreatedTwo = await Promise.all(orderStoreTwo);
+
   // console.log(reportCreated);
 
   // const xd = await generateReportForDate(

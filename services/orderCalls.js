@@ -55,4 +55,27 @@ async function getOrders(storeid) {
   }
 }
 
-module.exports = { createOrder, createOrderItem, getOrders };
+async function createOrderForDate(storeid, tval, date) {
+  const newDate = new Date(date);
+  try {
+    const response = await prisma.stockorder.create({
+      data: {
+        storeId: storeid,
+        totalvalue: +tval,
+        date: newDate,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error creating an order");
+  }
+}
+
+module.exports = {
+  createOrder,
+  createOrderItem,
+  getOrders,
+  createOrderForDate,
+};

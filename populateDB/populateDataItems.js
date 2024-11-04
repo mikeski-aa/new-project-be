@@ -139,7 +139,7 @@ async function getstoreinfo() {
 async function deleteUserATest() {
   const del = await prisma.user.delete({
     where: {
-      id: 8,
+      id: 10,
     },
   });
 
@@ -156,4 +156,4 @@ async function deleteUserATest() {
 
 // deleteUserATest();
 
-getstoreinfo();
+// getstoreinfo();

@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const cron = require("node-cron");
+const { findUsersUnderHours } = require("./services/dbCleanup");
 
 require("dotenv").config();
 
@@ -35,6 +36,14 @@ app.use("/api", apiRouter);
 // setting up job scheduler
 cron.schedule("0 */3 * * *", async () => {
   console.log("running a task every 3 hours");
+
+  // every 3 hours we purge guest accounts older than 3 hours.
+  // we need to delete:
+  // guest user
+  // guest user store
+  // guest user report
+  // guest user orders
+  await findUsersUnderHours();
 });
 
 // catch 404 and forward to error handler

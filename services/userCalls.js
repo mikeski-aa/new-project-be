@@ -1,4 +1,5 @@
 const { prisma } = require("../config/db");
+const { v4: uuidv4 } = require("uuid");
 
 async function createNewUser(username, hash) {
   try {
@@ -32,4 +33,22 @@ async function getGuestInfo(name) {
   }
 }
 
-module.exports = { createNewUser, getGuestInfo };
+async function createGuestUserAccount() {
+  const username = "guest" + uuidv4();
+  try {
+    const response = await prisma.user.create({
+      data: {
+        username: username,
+        isGuest: true,
+        hash: uuidv4(),
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+module.exports = { createNewUser, getGuestInfo, createGuestUserAccount };

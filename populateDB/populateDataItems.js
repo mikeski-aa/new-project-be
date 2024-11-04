@@ -125,10 +125,35 @@ async function getstoreinfo() {
   // console.log(response);
 
   for (let x = 0; x < response.length; x++) {
-    console.log("one store");
-    console.log(response[x].stores[0]);
-    // console.log(response[x].stores[1]);
+    if (response[x].stores.length > 0) {
+      console.log("one store");
+      console.log(response[x].stores[0].id);
+      console.log(response[x].stores[1].id);
+      // then for each ID we delete the stockorder and eodreport
+    } else {
+      console.log(response[x]);
+    }
   }
 }
+
+async function deleteUserATest() {
+  const del = await prisma.user.delete({
+    where: {
+      id: 8,
+    },
+  });
+
+  console.log(del);
+  // returned object from del:
+  // {
+  //   id: 6,
+  //   username: 'guestc086f4f2-587f-4910-9179-803bbec9e3ac',
+  //   hash: '0042f1b4-7d20-47c4-a185-99b0561b8229',
+  //   isGuest: true,
+  //   date: 2024-11-04T11:21:29.966Z
+  // }
+}
+
+// deleteUserATest();
 
 getstoreinfo();

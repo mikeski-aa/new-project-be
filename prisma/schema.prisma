@@ -12,6 +12,7 @@ model user {
   username String @unique
   hash     String
   isGuest Boolean @default(false)
+  date DateTime @default(now())
   stores store[]
 }
 

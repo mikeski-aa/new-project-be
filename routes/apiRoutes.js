@@ -127,6 +127,8 @@ apiRouter.get(
   apiController.getOrdersForStore
 );
 
+apiRouter.post("/login/guest/test", apiController.createGuestAccountBase);
+
 // get users
 apiRouter.get(
   "/users",

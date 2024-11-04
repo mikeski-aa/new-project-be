@@ -1,6 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const { genPassword } = require("../utils/passportUtils");
-const { createNewUser, getGuestInfo } = require("../services/userCalls");
+const {
+  createNewUser,
+  getGuestInfo,
+  createGuestUserAccount,
+} = require("../services/userCalls");
 const jwt = require("jsonwebtoken");
 const {
   getStores,
@@ -306,4 +310,10 @@ exports.getReportData = asyncHandler(async (req, res, next) => {
   console.log("REPORTS FOR STORE /////////////////");
   console.log(reportsForStore);
   return res.json(reportsForStore);
+});
+
+exports.createGuestAccountBase = asyncHandler(async (req, res, next) => {
+  const response = await createGuestUserAccount();
+  console.log(response);
+  res.json(response);
 });

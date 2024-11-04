@@ -32,7 +32,7 @@ async function testProductFill(storeid, item) {
     },
   });
 
-  console.log(response);
+  return response;
 }
 
 async function putProduct(item, storeId) {
@@ -40,7 +40,7 @@ async function putProduct(item, storeId) {
     item.map((product) => testProductFill(storeId, product))
   );
 
-  console.log(test);
+  return test;
 }
 
 module.exports = { putProduct, createStore };

@@ -37,6 +37,7 @@ const {
 
 const { items, carItems } = require("../populateDB/fakeItems");
 const { putProduct, createStore } = require("../services/sampleDataForGuest");
+
 exports.postRegister = asyncHandler(async (req, res, next) => {
   // validate input via middleware
   const hash = await genPassword(req.body.password);
@@ -314,8 +315,30 @@ exports.getReportData = asyncHandler(async (req, res, next) => {
   return res.json(reportsForStore);
 });
 
+// creates a new guest account every time someone clicks guest login.
 exports.createGuestAccountBase = asyncHandler(async (req, res, next) => {
   const response = await createGuestUserAccount();
-  console.log(response);
+  const userid = response.id;
+
+  const defaultStores = [
+    { storename: "My sample store", location: "Manchester" },
+    { storename: "My second store", location: "Sheffield" },
+  ];
+
+  // create fake stores
+  const storeResponses = defaultStores.map((store) =>
+    createStore(userid, store.storename, store.location)
+  );
+  const storePromise = await Promise.all(storeResponses);
+  console.log(storePromise);
+
+  // add items to fake stores
+  const storeItems = await Promise.all([
+    putProduct(items, storePromise[0].id),
+    putProduct(carItems, storePromise[1].id),
+  ]);
+
+  console.log(storeItems);
+
   res.json(response);
 });

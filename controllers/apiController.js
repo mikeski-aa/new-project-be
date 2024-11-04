@@ -27,6 +27,7 @@ const {
   deleteEodReport,
   deleteEodReportItems,
   getReportInfo,
+  generateReportForDate,
 } = require("../services/reportCalls");
 
 const {
@@ -330,7 +331,7 @@ exports.createGuestAccountBase = asyncHandler(async (req, res, next) => {
     createStore(userid, store.storename, store.location)
   );
   const storePromise = await Promise.all(storeResponses);
-  console.log(storePromise);
+  // console.log(storePromise);
 
   // add items to fake stores
   const storeItems = await Promise.all([
@@ -362,22 +363,40 @@ exports.createGuestAccountBase = asyncHandler(async (req, res, next) => {
   ];
 
   const reportStoreOne = dates.map((date) =>
-    generateReport(
+    generateReportForDate(
       storePromise[0].id,
       Math.floor(Math.random() * (700 - 105 + 1) + 105),
       date
     )
   );
 
+  const reportStoreTwo = dates.map((date) =>
+    generateReportForDate(
+      storePromise[1].id,
+      Math.floor(Math.random() * (700 - 105 + 1) + 105),
+      date
+    )
+  );
+
   const reportCreated = await Promise.all(reportStoreOne);
-  console.log(reportCreated);
+  const reportCreatedTwo = await Promise.all(reportStoreTwo);
+  // console.log(reportCreated);
+
+  // const xd = await generateReportForDate(
+  //   storePromise[0].id,
+  //   Math.floor(Math.random() * (700 - 105 + 1) + 105),
+  //   "01-02-2023"
+  // );
+
+  // console.log("creating fake data");
+  // console.log(xd);
 
   // const generatedReport = await generateReport(
   //   req.body.storeId,
   //   req.body.totalValue
   // );
 
-  console.log(storeItems);
+  // console.log(storeItems);
 
   const token = jwt.sign(
     { username: response.username },

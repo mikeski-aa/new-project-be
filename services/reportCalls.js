@@ -97,9 +97,7 @@ async function getReportInfo(storeid) {
 }
 
 async function generateReportForDate(storeid, totalValue, date) {
-  console.log("wtf?");
   const newDate = new Date(date);
-  console.log(newDate);
 
   try {
     const response = await prisma.eodreport.create({

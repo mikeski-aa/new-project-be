@@ -338,7 +338,57 @@ exports.createGuestAccountBase = asyncHandler(async (req, res, next) => {
     putProduct(carItems, storePromise[1].id),
   ]);
 
+  const dates = [
+    "01-17-2022",
+    "03-21-2022",
+    "05-09-2022",
+    "07-15-2022",
+    "09-12-2022",
+    "11-18-2022",
+    "01-23-2023",
+    "03-05-2023",
+    "05-14-2023",
+    "07-11-2023",
+    "09-23-2023",
+    "11-08-2023",
+    "02-13-2024",
+    "04-17-2024",
+    "06-08-2024",
+    "08-14-2024",
+    "10-19-2024",
+    "12-25-2024",
+    "03-01-2022",
+    "06-10-2023",
+  ];
+
+  const reportStoreOne = dates.map((date) =>
+    generateReport(
+      storePromise[0].id,
+      Math.floor(Math.random() * (700 - 105 + 1) + 105),
+      date
+    )
+  );
+
+  const reportCreated = await Promise.all(reportStoreOne);
+  console.log(reportCreated);
+
+  // const generatedReport = await generateReport(
+  //   req.body.storeId,
+  //   req.body.totalValue
+  // );
+
   console.log(storeItems);
 
-  res.json(response);
+  const token = jwt.sign(
+    { username: response.username },
+    process.env.TOKEN_SECRET
+  );
+
+  const returnObject = {
+    username: response.username,
+    id: response.id,
+    isGuest: response.isGuest,
+  };
+
+  return res.json({ token: token, user: returnObject });
 });

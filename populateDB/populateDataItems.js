@@ -21,10 +21,12 @@ async function updateUserGuestStatus() {
       username: "GuestUser",
     },
     data: {
-      isGuest: true,
+      isGuest: false,
     },
   });
 }
+
+// updateUserGuestStatus();
 
 async function testProductFill(storeid, item) {
   const newPrice = parseFloat(item.Price.toFixed(2));
@@ -106,6 +108,27 @@ async function dummyReports(storeid, value, date) {
   console.log(report);
 }
 
-dummyReports(8, 2321, "02-03-2025");
+// dummyReports(8, 2321, "02-03-2025");
 // dummyReports(8, 57547, "02-05-2024");
 // dummyReports(8, 57547, "02-08-2024");
+
+async function getstoreinfo() {
+  const response = await prisma.user.findMany({
+    where: {
+      isGuest: true,
+    },
+    include: {
+      stores: true,
+    },
+  });
+
+  // console.log(response);
+
+  for (let x = 0; x < response.length; x++) {
+    console.log("one store");
+    console.log(response[x].stores[0]);
+    // console.log(response[x].stores[1]);
+  }
+}
+
+getstoreinfo();

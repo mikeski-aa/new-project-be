@@ -5,7 +5,7 @@ const { deleteStore } = require("../services/storeCalls");
 async function findUsersUnderHours() {
   const newDate = new Date();
   // we create a current date and take 3 hours away
-  newDate.setHours(newDate.getHours() - 1);
+  newDate.setHours(newDate.getHours() - 3);
   try {
     // if the date of user account is less than 3 hours
     const deletedUsers = await prisma.user.findMany({

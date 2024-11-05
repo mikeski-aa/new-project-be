@@ -34,7 +34,7 @@ app.use("/", indexRouter);
 app.use("/api", apiRouter);
 
 // setting up job scheduler
-cron.schedule("0 */1 * * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
   console.log("running a task every 1 hours");
 
   // every 3 hours we purge guest accounts older than 3 hours.

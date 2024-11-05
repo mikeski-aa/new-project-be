@@ -69,10 +69,41 @@ async function addStore(name, location, userId) {
   }
 }
 
+// delete specific items from store order
+async function deleteOrderItems(id) {
+  try {
+    const response = await prisma.ordereditem.deleteMany({
+      where: {
+        orderId: +id,
+      },
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
 // deleting store needs to delete store items and also reports
 async function deleteStore(userid, storeid) {
   console.log("i am here");
   try {
+    const test = await prisma.stockorder.findMany({
+      where: {
+        storeId: +storeid,
+      },
+    });
+
+    const orderReportId = [];
+    test.map((item) => orderReportId.push(item.id));
+
+    const itemsDeleted = orderReportId.map((id) => deleteOrderItems(id));
+
+    await Promise.all(itemsDeleted);
+
+    console.log(orderReportId);
+
     const deleteSoldProduct = await prisma.soldproduct.deleteMany({
       where: {
         storeId: +storeid,
@@ -86,6 +117,12 @@ async function deleteStore(userid, storeid) {
     });
 
     const deleteItems = await prisma.product.deleteMany({
+      where: {
+        storeId: +storeid,
+      },
+    });
+
+    const deleteOrderedStock = await prisma.stockorder.deleteMany({
       where: {
         storeId: +storeid,
       },

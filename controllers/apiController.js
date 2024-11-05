@@ -37,6 +37,11 @@ const {
   createOrderForDate,
 } = require("../services/orderCalls");
 
+const {
+  deleteProducts,
+  deleteReportAndOrders,
+} = require("../services/dbCleanup");
+
 const { items, carItems } = require("../populateDB/fakeItems");
 const { putProduct, createStore } = require("../services/sampleDataForGuest");
 
@@ -172,6 +177,7 @@ exports.deleteStore = [
     }
 
     // call db service
+    // we need to delete associated items with store first
     const storeDelete = await deleteStore(req.body.userId, req.body.storeId);
 
     return res.json(storeDelete);

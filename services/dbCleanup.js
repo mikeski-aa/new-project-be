@@ -38,6 +38,12 @@ async function findUsersUnderHours() {
 }
 
 async function deleteReportAndOrders(id) {
+  const deleteSoldProduct = await prisma.soldproduct.deleteMany({
+    where: {
+      storeId: +id,
+    },
+  });
+
   const report = await prisma.eodreport.deleteMany({
     where: {
       storeId: +id,
@@ -84,6 +90,21 @@ async function deleteUser(id) {
   console.log(user);
 }
 
-findUsersUnderHours();
+async function deleteOrderItems(id) {
+  try {
+    const response = await prisma.ordereditem.deleteMany({
+      where: {
+        orderId: +id,
+      },
+    });
 
-module.exports = { findUsersUnderHours };
+    return response;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+}
+
+// findUsersUnderHours();
+
+module.exports = { findUsersUnderHours, deleteReportAndOrders, deleteProducts };

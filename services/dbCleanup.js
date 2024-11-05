@@ -21,6 +21,32 @@ async function findUsersUnderHours() {
     console.log(deletedUsers);
 
     for (let x = 0; x < deletedUsers.length; x++) {
+      const test = await prisma.stockorder.findMany({
+        where: {
+          storeId: +deletedUsers[x].stores[0].id,
+        },
+      });
+
+      const orderReportId = [];
+      test.map((item) => orderReportId.push(item.id));
+
+      const itemsDeleted = orderReportId.map((id) => deleteOrderItems(id));
+
+      await Promise.all(itemsDeleted);
+
+      const testO = await prisma.stockorder.findMany({
+        where: {
+          storeId: deletedUsers[x].stores[1].id,
+        },
+      });
+
+      const orderReportIdO = [];
+      test.map((item) => orderReportIdO.push(item.id));
+
+      const itemsDeletedO = orderReportIdO.map((id) => deleteOrderItems(id));
+
+      await Promise.all(itemsDeletedO);
+
       await deleteReportAndOrders(deletedUsers[x].stores[0].id);
       await deleteReportAndOrders(deletedUsers[x].stores[1].id);
       await deleteProducts(deletedUsers[x].stores[0].id);
